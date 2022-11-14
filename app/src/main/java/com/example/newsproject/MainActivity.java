@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 //startActivity(intent);
                 Intent intent = new Intent(getApplicationContext(), ItemActivity.class);
-                intent.putExtra("link",ListItem.get(adapterView.getFirstVisiblePosition()).getLink());
+                intent.putExtra("link",ListItem.get(adapterView.getPositionForView(view)).getLink());
                 startActivity(intent);
             }
         });
