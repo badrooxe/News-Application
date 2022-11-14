@@ -1,5 +1,7 @@
 package com.example.newsproject;
 
+import static android.text.Html.fromHtml;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -239,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
             Text_category.setText(listItem.get(i).category);
 
             String Des = (listItem.get(i).description);
-            Text_description.setText(Html.fromHtml(Des, Html.FROM_HTML_MODE_COMPACT));
+            Text_description.setText(fromHtml(Des, Html.FROM_HTML_MODE_COMPACT));
 
             try {
                 Picasso.with(MainActivity.this).load(listItem.get(i).Img)
