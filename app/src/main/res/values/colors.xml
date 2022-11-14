@@ -11,6 +11,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="beinSprots">#472270</color>
+    <color name="beinSprotsBackground">#E5E4ED</color>
     <color name="beinSprotsLight">#552A86</color>
     <color name="beinSprotsClicked">#705F8F</color>
 </resources>

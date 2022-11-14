@@ -1,10 +1,8 @@
 package com.example.newsproject;
-
-import static android.text.Html.fromHtml;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +22,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
@@ -37,12 +37,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 public class MainActivity extends AppCompatActivity {
 
     ListView lv;
     ArrayList<List_item> ListItem;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,21 @@ public class MainActivity extends AppCompatActivity {
 
         lv = findViewById(R.id.Lv);
         ListItem = new ArrayList<>();
+        swipeRefreshLayout = findViewById(R.id.swiper);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //Toast.makeText(getApplicationContext(), "Works!", Toast.LENGTH_LONG).show();
+                // To keep animation for 4 seconds
+                new Handler().postDelayed(new Runnable() {
+                    @Override public void run() {
+                        // Stop animation (This will be after 3 seconds)
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 4000);
+            }
+        });
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -62,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(intent);
                 Intent intent = new Intent(getApplicationContext(), ItemActivity.class);
                 intent.putExtra("link",ListItem.get(adapterView.getPositionForView(view)).getLink());
+                                                          //may cause problems
+                                                          //tried a hundred codes
+                                                          //this is the only one that worked
                 startActivity(intent);
             }
         });
@@ -230,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
             LayoutInflater layoutInflater = getLayoutInflater();
 
             @SuppressLint("ViewHolder")
-            View view1 = layoutInflater.inflate(R.layout.row_items, null);
+            View view1 = layoutInflater.inflate(R.layout.items, null);
 
             TextView title = view1.findViewById(R.id.Text_title);
             TextView Text_category = view1.findViewById(R.id.Text_category);
@@ -241,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
             Text_category.setText(listItem.get(i).category);
 
             String Des = (listItem.get(i).description);
-            Text_description.setText(fromHtml(Des, Html.FROM_HTML_MODE_COMPACT));
+            Text_description.setText(Html.fromHtml(Des, Html.FROM_HTML_MODE_COMPACT));
 
             try {
                 Picasso.with(MainActivity.this).load(listItem.get(i).Img)

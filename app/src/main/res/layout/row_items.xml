@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/Text_category"
+            android:id="@+id/Text_category1"
             android:padding="5dp"
             android:textColor="#009688"
             android:background="#21FFC107"
@@ -25,34 +25,33 @@
 
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:layout_margin="10dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/Img"/>
-
+        android:orientation="vertical">
 
 
         <TextView
+            android:id="@+id/Text_title1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/Text_title"
             android:layout_margin="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="title"
             android:layout_weight="1"
-            android:textSize="20dp"/>
+            android:text="title"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/Img1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Text_description"
+        android:id="@+id/Text_description1"
         android:layout_margin="5dp"
         android:textColor="#4453A3"
         android:text="description"
