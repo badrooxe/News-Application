@@ -18,7 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Lv"
-            android:divider="@null"/>
+            android:divider="@null"
+            android:fadeScrollbars="true"
+            android:scrollX="0px"
+            android:scrollY="0px"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarSize="20dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

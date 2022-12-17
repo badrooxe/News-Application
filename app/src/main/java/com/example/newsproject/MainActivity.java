@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -49,6 +50,26 @@ public class MainActivity extends AppCompatActivity {
     ListView lv;
     ArrayList<List_item> ListItem;
     SwipeRefreshLayout swipeRefreshLayout;
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -120,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
         if(id==R.id.About){
 
         }else if(id==R.id.Exit){
-
+            finish();
+            System.exit(0);
         }
         return true;
     }
