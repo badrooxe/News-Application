@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
+    android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/beinSprots"
     app:title="@string/app_name"
     app:titleTextColor="@color/white"
     app:titleMarginStart="25dp"
-    app:logo="@mipmap/applogomain" >
+    app:logo="@mipmap/applogo_round" >
 
 </androidx.appcompat.widget.Toolbar>

@@ -19,11 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -37,8 +41,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar=findViewById(R.id.toolbar);
@@ -56,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         lv = findViewById(R.id.Lv);
         ListItem = new ArrayList<>();
         swipeRefreshLayout = findViewById(R.id.swiper);
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.setValue("Hello, World!");
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -88,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         new ProcessInBackground().execute();
 
+
     }
 
     @Override
@@ -99,13 +117,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id==R.id.Search){
-
-        }else if(id==R.id.Settings){
-
-        }else if(id==R.id.About){
-
-        }else if(id==R.id.Share){
+        if(id==R.id.About){
 
         }else if(id==R.id.Exit){
 
@@ -224,8 +236,8 @@ public class MainActivity extends AppCompatActivity {
 
     class listAdapter extends BaseAdapter {
         ArrayList<List_item> listItem = new ArrayList<>();
-
-        listAdapter(ArrayList<List_item> list) {
+        //constructor
+        public listAdapter(ArrayList<List_item> list) {
             this.listItem = list;
         }
 
