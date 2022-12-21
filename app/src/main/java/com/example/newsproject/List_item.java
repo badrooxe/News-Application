@@ -8,6 +8,26 @@ public class List_item {
     String description;
     String Img;
 
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
+
+    private boolean saved ;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    private String key;
+
     public String getTitle() {
         return title;
     }

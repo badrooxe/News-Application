@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<List_item> ListItem;
     SwipeRefreshLayout swipeRefreshLayout;
     boolean doubleBackToExitPressedOnce = false;
+    ImageView star;
 
     @Override
     public void onBackPressed() {
@@ -91,10 +92,6 @@ public class MainActivity extends AppCompatActivity {
         ListItem = new ArrayList<>();
         swipeRefreshLayout = findViewById(R.id.swiper);
 
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World!");
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -139,7 +136,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if(id==R.id.About){
+        if(id==R.id.Saved){
+            Intent intent = new Intent(MainActivity.this,Saved_Items.class);
+            startActivity(intent);
 
         }else if(id==R.id.Exit){
             finish();
@@ -291,6 +290,7 @@ public class MainActivity extends AppCompatActivity {
             TextView Text_category = view1.findViewById(R.id.Text_category);
             TextView Text_description = view1.findViewById(R.id.Text_description);
             ImageView img = view1.findViewById(R.id.Img);
+            ImageView star = (ImageView) view1.findViewById(R.id.star);
 
             title.setText(listItem.get(i).title);
             Text_category.setText(listItem.get(i).category);
@@ -299,14 +299,37 @@ public class MainActivity extends AppCompatActivity {
             Text_description.setText(Html.fromHtml(Des, Html.FROM_HTML_MODE_COMPACT));
 
             try {
-                Picasso.with(MainActivity.this).load(listItem.get(i).Img)
+                Picasso.get().load(listItem.get(i).Img)
                         .error(R.drawable.ic_action_img)
                         .placeholder(R.drawable.ic_action_img).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                         .into(img);
             } catch (Exception e) {
             }
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(new HelperClass().getMacAddr());
+
+
+            star.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listItem.get(i).isSaved()) {
+                        try {
+                            Picasso.get().load(R.drawable.star)
+                                    .error(R.drawable.ic_action_img)
+                                    .placeholder(R.drawable.star).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .into(star);
+
+                        } catch (Exception e) {}
+                        myRef.child(listItem.get(i).getKey()).removeValue();
+                        listItem.get(i).setSaved(false);
+                    }else{
+                        new HelperClass().save(star,listItem,i);
+                    }
+                }
+            });
+
             return view1;
         }
+
     }
 
 }
