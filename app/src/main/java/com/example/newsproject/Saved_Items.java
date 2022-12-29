@@ -1,6 +1,7 @@
 package com.example.newsproject;
 
 import android.annotation.SuppressLint;
+import android.app.LauncherActivity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.net.Uri;
@@ -73,14 +74,12 @@ public class Saved_Items  extends AppCompatActivity {
             }
         });
 
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Uri uri = Uri.parse(list.get(position).getLink());
-
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), ItemActivity.class);
+                intent.putExtra("link",list.get(i).getLink());
                 startActivity(intent);
             }
         });
