@@ -28,7 +28,7 @@
                 android:value="" />
         </activity>
         <activity android:name=".ItemActivity"></activity>
-        <activity android:name=".Saved_Items"></activity>
+        <activity android:name=".Saved_Items" android:parentActivityName=".MainActivity"></activity>
 
     </application>
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/beinSprotsBackground"
     tools:context=".Saved_Items">
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -14,5 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/savelist"
+        android:divider="@null"
         android:layout_marginTop="5dp"/>
 </RelativeLayout>
