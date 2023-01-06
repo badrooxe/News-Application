@@ -85,6 +85,17 @@ public class HelperClass {
         } catch (Exception e) {
         }
     }
+    public void unfillStar(ImageView star){
+
+        try {
+            Picasso.get().load(R.drawable.star)
+                    .error(R.drawable.ic_action_img)
+                    .placeholder(R.drawable.star).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .into(star);
+
+        } catch (Exception e) {
+        }
+    }
 
     public void save(ImageView star, ArrayList<List_item> ListItem, int i){
         fillStar(star);
@@ -94,10 +105,8 @@ public class HelperClass {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    // Exist! Do whatever.
                     myRef.child(String.valueOf(hashCode())).setValue(ListItem.get(i));
                 } else {
-                    // Don't exist! Do something.
                     myRef.child(String.valueOf(hashCode())).setValue(ListItem.get(i));
                 }
             }

@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -46,8 +48,6 @@ public class Saved_Items  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_items);
         listView = (ListView) findViewById(R.id.savelist);
-        progress_bar = (ProgressBar) findViewById(R.id.progress_bar);
-
         list = new ArrayList<>();
         DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(new HelperClass().getMacAddr());
         adapter = new listAdapter((ArrayList<List_item>) list);
@@ -64,7 +64,6 @@ public class Saved_Items  extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
 
-                progress_bar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -84,6 +83,19 @@ public class Saved_Items  extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        return true;
+    }
+
     class listAdapter extends BaseAdapter {
         ArrayList<List_item> listItem = new ArrayList<>();
         //constructor
@@ -141,9 +153,9 @@ public class Saved_Items  extends AppCompatActivity {
                 public void onClick(View view) {
                     if (listItem.get(i).isSaved()) {
                         try {
-                            Picasso.get().load(R.drawable.star)
+                            Picasso.get().load(R.drawable.saved)
                                     .error(R.drawable.ic_action_img)
-                                    .placeholder(R.drawable.star).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .placeholder(R.drawable.saved).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                                     .into(star);
 
                         } catch (Exception e) {}
