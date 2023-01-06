@@ -146,6 +146,7 @@ public class Saved_Items  extends AppCompatActivity {
             } catch (Exception e) {
             }
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(new HelperClass().getMacAddr());
+            if (listItem.get(i).isSaved()) new HelperClass().fillStar(star);
 
 
             star.setOnClickListener(new View.OnClickListener() {
@@ -153,9 +154,9 @@ public class Saved_Items  extends AppCompatActivity {
                 public void onClick(View view) {
                     if (listItem.get(i).isSaved()) {
                         try {
-                            Picasso.get().load(R.drawable.saved)
+                            Picasso.get().load(R.drawable.star)
                                     .error(R.drawable.ic_action_img)
-                                    .placeholder(R.drawable.saved).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .placeholder(R.drawable.star).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                                     .into(star);
 
                         } catch (Exception e) {}
@@ -170,5 +171,11 @@ public class Saved_Items  extends AppCompatActivity {
             return view1;
         }
 
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_to_left,R.anim.slide_from_right);
     }
 }

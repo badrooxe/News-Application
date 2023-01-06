@@ -65,4 +65,10 @@ public class ItemActivity extends AppCompatActivity {
         webView.loadUrl(url);
 
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_to_right,R.anim.slide_from_left);
+    }
 }

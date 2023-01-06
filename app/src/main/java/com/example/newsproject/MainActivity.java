@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                                                           //tried a hundred codes
                                                           //this is the only one that worked
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_to_left,R.anim.slide_from_right);
             }
         });
 
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         if(id==R.id.Saved){
             Intent intent = new Intent(MainActivity.this,Saved_Items.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_to_right,R.anim.slide_from_left);
 
         }else if(id==R.id.Exit){
             finish();
@@ -303,6 +305,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
             }
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference(new HelperClass().getMacAddr());
+            if (listItem.get(i).isSaved()) new HelperClass().fillStar(star);
+
 
 
             star.setOnClickListener(new View.OnClickListener() {
@@ -314,7 +318,6 @@ public class MainActivity extends AppCompatActivity {
                                     .error(R.drawable.ic_action_img)
                                     .placeholder(R.drawable.star).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                                     .into(star);
-
                         } catch (Exception e) {}
                         myRef.child(listItem.get(i).getKey()).removeValue();
                         listItem.get(i).setSaved(false);
